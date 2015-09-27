@@ -1,0 +1,53 @@
+/* For given two numbers, the code below finds in which bases/number systems are those two numbers equal. */
+
+import java.io.*;
+class TryBase
+{
+    public static void main(String args[]) throws IOException
+    {
+        Base obj = new Base();
+        obj.accept();
+        obj.logic();
+    }
+}
+class Base
+{
+    int a,b;
+    void accept() throws IOException
+    {
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       System.out.println("Enter the two number");
+       a = Integer.parseInt(br.readLine());
+       b = Integer.parseInt(br.readLine());
+    }
+    void logic()
+    {
+        int i,j;
+        for(i=2;i<=20;i++)
+        {
+            for(j=2;j<=20;j++)
+            {
+                if(j!=i)
+                {
+                    if(check(a,i) == check(b,j))
+                    {
+                        System.out.println(a+" (base "+i+") = "+b+" (base "+j+")");
+                       return;
+                    }
+                }
+            }
+        }
+        System.out.println("Not found");
+    }
+    int check(int x,int y)
+    { 
+        int p=0;
+        for(int i=0;x!=0;i++)
+        {
+            p = p + (int)((Math.pow(y,i)) * (x%10));
+            x = x / 10;
+        }
+        return p;
+    }
+}
+    
