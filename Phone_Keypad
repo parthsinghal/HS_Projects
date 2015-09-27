@@ -1,3 +1,6 @@
+/* Makes a keypad based on how keypad-based mobile phones used to operate - based on number of presses or clicks. Also, it makes
+the world and checks with a dictionary in connection with mySQL for spelling and possible suggestions for the word. */
+
 import java.io.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
