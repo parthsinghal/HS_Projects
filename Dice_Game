@@ -1,0 +1,86 @@
+/* Plays a dice game in which you play the game by rolling two dice to determine the number of turns you've to play. 
+Then, you roll the dice as determined by above and write the sum of digits in each turn. At the end, add all prime and composite
+number sums seperately. IF the prime sum > composite sum, you win! */
+
+import java.io.*;
+class TryDiceGame
+{
+    public static void main(String args[]) throws IOException
+    {
+        DiceGame obj = new DiceGame();
+        obj.logic();
+    }
+}
+class DiceGame
+{
+    String str;
+    void accept() throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        str = br.readLine();
+    }
+    void logic() throws IOException
+    {
+        int a,b,i,sum=0,p=0,co=0,pr=0,s=0;
+        long q;
+        System.out.println("Do you wanna play? (Y/N)");
+        accept();
+        while(str.equalsIgnoreCase("Y"))
+        {
+            p = p-100;
+            a = genNum();
+            b = genNum();
+            sum  = a+b;
+            System.out.println("Rolling the dice.....");
+             for(q=0;q<=1000000000;q++);
+            System.out.println("First number on dice "+a);
+            System.out.println("Second number on dice "+b);
+            System.out.println("Their sum "+sum);
+            System.out.println();
+            if(sum == 7){System.out.println("Sum is 7, you win!");p = p+300;}
+            else 
+            {
+                System.out.println("Now the dice will be thrown "+sum+" no. of times");
+                for(i=1;i<=sum;i++)
+                {
+                    a = genNum();
+                    b = genNum();
+                    s = a+b;
+                    System.out.println("Rolling the dice.....");
+                    for(q=0;q<=1000000000;q++);
+                    System.out.println("First number on dice "+a);
+                    for(q=0;q<=1000000000;q++);
+                    System.out.println("Second number on dice "+b);
+                    System.out.println("Their sum "+s);
+                    System.out.println();
+                    if(checkPrime(s))pr += s;
+                    else co +=s;
+                }
+                System.out.println("Sum of prime "+pr);
+                System.out.println("Sum of composite "+co);
+                if(pr>co){System.out.println("Sum of prime numbers is greater than sum of composite numbers, you win!"); p = p+300;}
+                else {System.out.println("You lost!"); p = p-200;}
+                pr = co =0;
+            }
+            System.out.println("Do you want to continue? (Y/N)");
+            accept();
+        }
+        if(p>0)System.out.println("You will receive Rs. "+p);
+        else System.out.println("You will pay Rs. "+Math.abs(p));
+    }
+    private int genNum()
+    {
+        int a;
+        do
+        {
+            a = (int)(Math.random() *10);
+        }  while(a<=0 || a>6);
+        return a;
+    }
+    private boolean checkPrime(int n)
+    {
+        for(int i=2;i<n/2;i++)
+            if(n%i==0) return false;
+        return true; 
+    } 
+}
