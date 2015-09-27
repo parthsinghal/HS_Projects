@@ -1,0 +1,43 @@
+/* Finds the day of a given date */
+
+import java.io.*;
+class Calen
+{
+    public static void main(String args[]) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter the month?");
+        int m = Integer.parseInt(br.readLine());
+        System.out.println("Enter the date?");
+        int d = Integer.parseInt(br.readLine());
+        System.out.println("Enter the year?");
+        int y = Integer.parseInt(br.readLine());
+        int c = day(m,d,y);
+        switch(c)
+        {
+            case 0: System.out.println("Sunday");
+                    break;     
+            case 1: System.out.println("Monday");
+                    break;
+            case 2: System.out.println("Tuesday");
+                    break;
+            case 3: System.out.println("Wednesday");
+                    break;
+           case 4: System.out.println("Thursday");
+                    break;
+           case 5: System.out.println("Friday");
+                    break;
+           case 6: System.out.println("Saturday");
+                    break;
+           default: System.out.println("Wrong input");        
+        }
+    }
+    public static int day(int M,int D,int Y)
+    {
+        int y = Y-(14-M)/12;
+        int x = y + y/4 - y/100 + y/400;
+        int m = M + 12 * ( (14-M)/12 ) - 2; 
+        int d = (D + x + (31*m)/12 ) % 7;
+        return d;
+    }
+}
