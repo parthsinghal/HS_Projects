@@ -1,0 +1,114 @@
+import java.io.*;
+class TryCinemaBook
+{
+    public static void main(String args[]) throws IOException
+    {
+        CinemaBook obj  = new CinemaBook();
+        obj.find_seats();
+    }
+}
+class CinemaBook
+{
+    int n,r,m;
+    int arr[][];
+    void accept() throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter the no. of seats you want to book?");
+        n = Integer.parseInt(br.readLine());
+        System.out.println("Enter your prefered row (from 1-15)?");
+        r = Integer.parseInt(br.readLine());
+        if(m==0)arr = new int[15][15];
+    }
+    void find_seats()throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int i,t,s;
+        boolean flag =false;
+        String st="Y";
+        while(st.equalsIgnoreCase("Y"))
+        {
+            accept();
+            flag = false;
+            if(checkContinuous(r-1))
+            {
+                flag = true;
+                System.out.println("Starting from which seat number you want to book?");
+                s = Integer.parseInt(br.readLine());
+                while((s+n)>16)
+                {
+                    System.out.println("Wrong starting seat no.,enter again?");
+                    s = Integer.parseInt(br.readLine());
+                }
+                fill_seats(r-1,s-1);
+            }
+            else
+            {
+                for(i=0;i<15;i++)
+                {
+                    if(checkContinuous(i))flag = true;
+                }
+                if(flag)
+                {
+                    System.out.println("Which row and from which seat no. you want booked?");
+                    t = Integer.parseInt(br.readLine());
+                    s = Integer.parseInt(br.readLine());
+                    while((s+n)>16)
+                    {   
+                        System.out.println("Wrong starting seat no.,enter again?");
+                        s = Integer.parseInt(br.readLine());
+                    }
+                    fill_seats(t-1,s-1);
+                }
+            }
+            if(flag == false) System.out.println("No continuous seats available");
+            display();
+            System.out.println("Do you want to continue? (Y/N)");
+            st = br.readLine();
+            m++;
+        }
+    }
+    boolean checkContinuous(int a)
+    {
+        boolean flag = false; 
+        int t=0,i,j; 
+        String s="";
+        for(i=0;i<=15-n;i++)
+        {
+            for(j=i;j<i+n;j++)
+            {
+                if(arr[a][j]==1) t = 1;
+                s = s +(j+1)+",";
+            }
+            if(t==0){System.out.println("Following combinations of row "+(a+1)+ " possible \n Row:"+(a+1)+" Seat: "+s);flag = true;}
+            s="";t=0;
+        }
+        return flag;
+    }
+    void fill_seats(int a, int b)
+    {
+        for(int i=b;i<b+n;i++)
+            arr[a][i] = 1;
+    }
+    void display()
+    {
+        System.out.println("Filled seats");
+        for(int i=0;i<15;i++)
+        {
+            for(int j=0;j<15;j++)
+                System.out.print(arr[i][j]+"\t");
+            System.out.println();
+        }
+    }           
+}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            
