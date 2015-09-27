@@ -1,0 +1,74 @@
+/* The following code can be used check if a number is vampire or not. 
+Vampire Numbers: https://en.wikipedia.org/wiki/Vampire_number */
+
+import java.io.*;
+class TryVampire
+{
+    public static void main(String args[]) throws IOException
+    {
+        Vampire obj = new Vampire();
+        obj.accept();
+        obj.vamp();
+    }
+}
+class Vampire
+{
+    int num,a[],b[];
+    void accept() throws IOException
+    {
+        BufferedReader br  = new BufferedReader(new InputStreamReader(System.in));
+        do
+        {
+            System.out.println("Enter the number");
+            num = Integer.parseInt(br.readLine());
+        }while( numOfDigits(num)%2 != 0);
+    }
+    void vamp()
+    {
+        int n1 = numOfDigits(num)/2;
+        int l2 = (int) Math.pow(10,n1);
+        for(int i= (int) Math.pow(10,n1-1); i< l2;i++)
+        {
+            if(num%i==0)
+            {
+                assign1();
+                assign2(i);
+                assign2(num/i);
+                if(check())
+                    System.out.println(i+" x "+(num/i));
+                l2 = num/i;
+            }
+        }          
+    }
+    int numOfDigits(int a)
+    {
+        if(a == 0) return 0;
+        else return (1+numOfDigits(a/10));
+    }
+    void assign1()
+    {
+        a = new int[10];
+        b = new int[10];
+        int same = num;
+        while(same!=0)
+        {
+            a[same%10]++;
+            same /= 10;
+        }
+    }
+    void assign2(int a)
+    {
+        while(a!=0)
+        {
+            b[a%10]++;
+            a /=10;
+        }
+    }
+    boolean check()
+    {
+        for(int i=0;i<10;i++)
+            if(a[i]!=b[i])
+                return false;
+        return true;
+    }
+}
