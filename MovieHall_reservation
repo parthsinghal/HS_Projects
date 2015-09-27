@@ -1,3 +1,7 @@
+/* A model of a movie all with 15 rows and 15 columns. Helps make reservation by asking preferred place/s,
+making possible suggestions, and eventually booking the seat until all seats have been booked or all customers have been 
+accomodated */
+
 import java.io.*;
 class TryCinemaBook
 {
